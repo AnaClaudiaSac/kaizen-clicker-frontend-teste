@@ -1,4 +1,4 @@
-import type { FactoryStats, UpgradeDefinition, UpgradeEffect, UpgradeId, UpgradePurchases } from './types'
+import type { FactoryStats, GameState, UpgradeDefinition, UpgradeEffect, UpgradeId, UpgradePurchases } from './types'
 
 export const TICK_MS = 1000
 export const COST_GROWTH_RATE = 1.5
@@ -38,4 +38,15 @@ export const UPGRADE_EFFECTS: Record<UpgradeId, UpgradeEffect> = {
   tpm: { oeeBonus: 0.15, defectReduction: 0.1 },
   andon: { oeeBonus: 0.05 },
   heijunka: { oeeBonus: 0.25 },
+}
+
+export function createInitialGameState(now: number): GameState {
+  return {
+    points: 0,
+    totalProduced: 0,
+    totalDefects: 0,
+    purchases: { ...INITIAL_PURCHASES },
+    lastTickTimestamp: now,
+    history: [],
+  }
 }
