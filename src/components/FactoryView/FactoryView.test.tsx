@@ -16,10 +16,14 @@ describe('FactoryView', () => {
     expect(screen.getByText('42')).toBeInTheDocument()
   })
 
-  it('mostra os indicadores iniciais da fábrica (produção, defeito, OEE)', () => {
+  it('mostra os indicadores iniciais da fábrica (produção e defeito)', () => {
     render(<FactoryView />)
     expect(screen.getByText('1.00/s')).toBeInTheDocument()
     expect(screen.getByText('30%')).toBeInTheDocument()
-    expect(screen.getByText('40%')).toBeInTheDocument()
+  })
+
+  it('não duplica o indicador de OEE (mostrado apenas no gráfico do Dashboard)', () => {
+    render(<FactoryView />)
+    expect(screen.queryByText('OEE')).not.toBeInTheDocument()
   })
 })
