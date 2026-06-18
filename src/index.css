@@ -84,6 +84,80 @@ body {
   color: #fff;
 }
 
+.kc-reset-btn {
+  background: transparent;
+  border: 1px solid var(--kc-danger);
+  border-radius: var(--kc-radius-md);
+  padding: 6px 14px;
+  font-size: 12px;
+  color: var(--kc-danger);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.kc-reset-btn:hover {
+  background: var(--kc-danger);
+  color: #fff;
+}
+
+.kc-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+
+.kc-modal {
+  background: var(--kc-card);
+  border: 1px solid var(--kc-border);
+  border-radius: var(--kc-radius-lg);
+  padding: 20px;
+  max-width: 360px;
+  width: 90%;
+}
+
+.kc-modal-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  margin: 0 0 8px;
+}
+
+.kc-modal-text {
+  font-size: 13px;
+  color: var(--kc-text-muted);
+  margin: 0 0 16px;
+}
+
+.kc-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.kc-modal-btn-cancel {
+  background: transparent;
+  border: 1px solid var(--kc-border);
+  border-radius: var(--kc-radius-md);
+  padding: 6px 14px;
+  font-size: 12px;
+  color: var(--kc-text);
+  cursor: pointer;
+}
+
+.kc-modal-btn-confirm {
+  background: var(--kc-danger);
+  border: none;
+  border-radius: var(--kc-radius-md);
+  padding: 6px 14px;
+  font-size: 12px;
+  color: #fff;
+  cursor: pointer;
+}
+
 .kc-body {
   display: grid;
   grid-template-columns: 1fr;

@@ -28,4 +28,28 @@ describe('App', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Jogo' }))
     expect(screen.getByText('Pontos Kaizen')).toBeInTheDocument()
   })
+
+  it('abre o modal de confirmação ao clicar em Reiniciar, e reinicia o jogo ao confirmar', () => {
+    useGameStore.setState((state) => ({ game: { ...state.game, points: 500 } }))
+
+    render(<App />)
+    fireEvent.click(screen.getByRole('button', { name: 'Reiniciar' }))
+    expect(screen.getByText('Reiniciar jogo')).toBeInTheDocument()
+
+    fireEvent.click(screen.getByRole('button', { name: 'Sim, reiniciar' }))
+
+    expect(useGameStore.getState().game.points).toBe(0)
+    expect(screen.queryByText('Reiniciar jogo')).not.toBeInTheDocument()
+  })
+
+  it('não reinicia o jogo quando o usuário cancela no modal', () => {
+    useGameStore.setState((state) => ({ game: { ...state.game, points: 500 } }))
+
+    render(<App />)
+    fireEvent.click(screen.getByRole('button', { name: 'Reiniciar' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Cancelar' }))
+
+    expect(useGameStore.getState().game.points).toBe(500)
+    expect(screen.queryByText('Reiniciar jogo')).not.toBeInTheDocument()
+  })
 })
