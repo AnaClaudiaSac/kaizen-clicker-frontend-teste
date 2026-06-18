@@ -27,3 +27,21 @@ export function toChartPoints(history: HistoryPoint[]): ChartPoint[] {
     return { timestamp: point.timestamp, produced: point.produced, defectsPerMinute, oee: point.oee }
   })
 }
+
+/**
+ * Arredonda o valor exibido no tooltip dos gráficos para 2 casas decimais,
+ * evitando imprecisão de ponto flutuante (ex.: 18.000000000000014).
+ */
+export function formatChartTooltipValue(value: number | string | readonly (number | string)[] | undefined) {
+  return typeof value === 'number' ? value.toFixed(2) : value
+}
+
+/**
+ * Formata o timestamp (epoch ms) exibido no tooltip dos gráficos como
+ * horário local legível (HH:MM:SS), em vez do número cru.
+ */
+export function formatChartTimestamp(timestamp: number | string): string {
+  const date = new Date(Number(timestamp))
+  const pad = (n: number) => n.toString().padStart(2, '0')
+  return `${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`
+}

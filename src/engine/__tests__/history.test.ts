@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { toChartPoints } from '../history'
+import { formatChartTimestamp, formatChartTooltipValue, toChartPoints } from '../history'
 import type { HistoryPoint } from '../types'
 
 describe('toChartPoints', () => {
@@ -31,5 +31,36 @@ describe('toChartPoints', () => {
     ]
     const [, second] = toChartPoints(history)
     expect(second.defectsPerMinute).toBe(0)
+  })
+})
+
+describe('formatChartTooltipValue', () => {
+  it('arredonda valores numéricos para 2 casas decimais', () => {
+    expect(formatChartTooltipValue(18.000000000000014)).toBe('18.00')
+  })
+
+  it('mantém valores que não são número (string) inalterados', () => {
+    expect(formatChartTooltipValue('n/a')).toBe('n/a')
+  })
+
+  it('mantém undefined inalterado', () => {
+    expect(formatChartTooltipValue(undefined)).toBeUndefined()
+  })
+})
+
+describe('formatChartTimestamp', () => {
+  it('formata um timestamp como horário local HH:MM:SS', () => {
+    const timestamp = new Date(2024, 0, 1, 14, 5, 9).getTime()
+    expect(formatChartTimestamp(timestamp)).toBe('14:05:09')
+  })
+
+  it('preenche horas, minutos e segundos com zero à esquerda', () => {
+    const timestamp = new Date(2024, 0, 1, 1, 2, 3).getTime()
+    expect(formatChartTimestamp(timestamp)).toBe('01:02:03')
+  })
+
+  it('aceita o timestamp como string (vindo do label do gráfico)', () => {
+    const timestamp = new Date(2024, 0, 1, 9, 30, 0).getTime()
+    expect(formatChartTimestamp(String(timestamp))).toBe('09:30:00')
   })
 })
