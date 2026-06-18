@@ -84,6 +84,22 @@ body {
   color: #fff;
 }
 
+.kc-reset-btn {
+  background: transparent;
+  border: 1px solid var(--kc-danger);
+  border-radius: var(--kc-radius-md);
+  padding: 6px 14px;
+  font-size: 12px;
+  color: var(--kc-danger);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.kc-reset-btn:hover {
+  background: var(--kc-danger);
+  color: #fff;
+}
+
 .kc-body {
   display: grid;
   grid-template-columns: 1fr;
