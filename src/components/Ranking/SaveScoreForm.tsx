@@ -14,7 +14,7 @@ export function SaveScoreForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex gap-2 rounded-lg border border-slate-700 bg-slate-800 p-4">
+    <form onSubmit={handleSubmit} className="kc-panel" style={{ display: 'flex', gap: '8px' }}>
       <input
         type="text"
         value={name}
@@ -24,11 +24,7 @@ export function SaveScoreForm() {
         aria-label="Nome do jogador"
         className="flex-1 rounded-md bg-slate-700 px-3 py-2 text-sm text-slate-100 placeholder:text-slate-400"
       />
-      <button
-        type="submit"
-        disabled={!name.trim()}
-        className="shrink-0 rounded-md bg-emerald-600 px-4 py-2 text-sm font-medium text-white disabled:cursor-not-allowed disabled:bg-slate-600 disabled:text-slate-400"
-      >
+      <button type="submit" disabled={!name.trim()} className="kc-item-btn">
         Salvar pontuação
       </button>
     </form>
