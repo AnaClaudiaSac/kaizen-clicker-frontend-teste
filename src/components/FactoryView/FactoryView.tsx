@@ -25,10 +25,6 @@ export function FactoryView() {
           <p className="kc-stat-val red">{(stats.defectRate * 100).toFixed(0)}%</p>
           <p className="kc-stat-lbl">Defeito</p>
         </div>
-        <div className="kc-stat">
-          <p className="kc-stat-val">{(stats.oee * 100).toFixed(0)}%</p>
-          <p className="kc-stat-lbl">OEE</p>
-        </div>
       </div>
     </>
   )
