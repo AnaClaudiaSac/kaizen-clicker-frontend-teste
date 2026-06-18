@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { ConfirmModal } from './components/ConfirmModal/ConfirmModal'
 import { Dashboard } from './components/Dashboard/Dashboard'
 import { FactoryView } from './components/FactoryView/FactoryView'
 import { RankingScreen } from './components/Ranking/RankingScreen'
@@ -11,13 +12,12 @@ type View = 'game' | 'ranking'
 function App() {
   useGameLoop()
   const [view, setView] = useState<View>('game')
+  const [showResetModal, setShowResetModal] = useState(false)
   const resetGame = useGameStore((state) => state.resetGame)
 
-  function handleReset() {
-    const confirmed = window.confirm('Tem certeza que deseja reiniciar o jogo? Todo o progresso será perdido.')
-    if (confirmed) {
-      resetGame()
-    }
+  function handleConfirmReset() {
+    resetGame()
+    setShowResetModal(false)
   }
 
   return (
@@ -40,10 +40,19 @@ function App() {
             Ranking
           </button>
         </nav>
-        <button type="button" onClick={handleReset} className="kc-reset-btn">
+        <button type="button" onClick={() => setShowResetModal(true)} className="kc-reset-btn">
           Reiniciar
         </button>
       </header>
+
+      <ConfirmModal
+        open={showResetModal}
+        title="Reiniciar jogo"
+        message="Tem certeza que deseja reiniciar o jogo? Todo o progresso será perdido."
+        confirmLabel="Sim, reiniciar"
+        onConfirm={handleConfirmReset}
+        onCancel={() => setShowResetModal(false)}
+      />
 
       {view === 'game' ? (
         <div className="kc-body">
