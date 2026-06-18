@@ -281,7 +281,7 @@ O array `history`, em `GameState`, armazena um ponto por tick (ou a cada N ticks
 | `ranking.test.ts` | inserção de nome novo; atualização condicionada a score maior; manutenção quando score é menor ou igual |
 | `persistence.test.ts` | gravação/leitura em localStorage; comportamento diante de dado corrompido ou com formato inválido; limite máximo de entradas do ranking |
 
-Comando de cobertura: `npm run test -- --coverage` (configurado em `vitest.config.ts` com threshold mínimo de 80%, de modo a falhar a execução caso a cobertura fique abaixo do limite).
+Comando de cobertura: `npm run test:coverage` (configurado em `vitest.config.ts` com threshold mínimo de 80%, de modo a falhar a execução caso a cobertura fique abaixo do limite).
 
 ## 11.1 Considerações de segurança
 
@@ -369,7 +369,7 @@ O `README.md` documenta o projeto como um todo, não apenas os comandos de execu
 3. **Stack tecnológica** — React, Vite, TypeScript, Zustand, Recharts, Tailwind, Vitest, com a versão de cada uma.
 4. **Arquitetura** — resumo curto da separação `engine/` / `store/` / `components/`, com link para `SPEC.md` para o detalhamento completo.
 5. **Como rodar localmente** — `npm install`, `npm run dev`, requisitos (Node version).
-6. **Como rodar os testes e a cobertura** — comando exato (`npm run test -- --coverage`), e onde encontrar o relatório gerado.
+6. **Como rodar os testes e a cobertura** — comando exato (`npm run test:coverage`), e onde encontrar o relatório gerado.
 7. **Relatório de cobertura** — percentual atingido por categoria (statements/branches/functions/lines), em texto ou print, conforme exigido pelo desafio.
 8. **Decisões de design relevantes** — resumo das principais (ex.: acúmulo de efeitos das melhorias, simplificação de Andon/Heijunka), com link para as seções correspondentes do `SPEC.md`.
 9. **Link do deploy** (Netlify).
