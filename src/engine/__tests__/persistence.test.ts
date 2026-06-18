@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { createInitialGameState, INITIAL_PURCHASES } from '../constants'
 import { loadGameState, loadRanking, saveGameState, saveRanking } from '../persistence'
 import type { RankingEntry } from '../types'
@@ -41,6 +41,31 @@ describe('ranking: loadRanking / saveRanking', () => {
     localStorage.setItem(RANKING_KEY, JSON.stringify({ não: 'é um array' }))
     expect(loadRanking()).toEqual([])
   })
+
+  it('descarta entradas nulas dentro do array (formato inválido)', () => {
+    localStorage.setItem(RANKING_KEY, JSON.stringify([null, { name: 'Ana', score: 100, savedAt: 1 }]))
+    expect(loadRanking()).toEqual([{ name: 'Ana', score: 100, savedAt: 1 }])
+  })
+
+  it('retorna lista vazia quando localStorage.getItem lança uma exceção (ex.: modo privado)', () => {
+    const getItemSpy = vi.spyOn(Storage.prototype, 'getItem').mockImplementation(() => {
+      throw new Error('localStorage indisponível')
+    })
+
+    expect(loadRanking()).toEqual([])
+
+    getItemSpy.mockRestore()
+  })
+
+  it('não lança erro quando localStorage.setItem falha ao salvar (ex.: quota excedida)', () => {
+    const setItemSpy = vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
+      throw new Error('quota excedida')
+    })
+
+    expect(() => saveRanking([{ name: 'Ana', score: 100, savedAt: 1 }])).not.toThrow()
+
+    setItemSpy.mockRestore()
+  })
 })
 
 describe('save do jogo: loadGameState / saveGameState', () => {
@@ -72,6 +97,21 @@ describe('save do jogo: loadGameState / saveGameState', () => {
 
   it('retorna null quando o JSON salvo está corrompido', () => {
     localStorage.setItem(SAVE_KEY, '{not-valid-json')
+    expect(loadGameState()).toBeNull()
+  })
+
+  it('retorna null quando purchases é nulo (formato inválido)', () => {
+    localStorage.setItem(
+      SAVE_KEY,
+      JSON.stringify({
+        points: 0,
+        totalProduced: 0,
+        totalDefects: 0,
+        purchases: null,
+        lastTickTimestamp: 0,
+        history: [],
+      })
+    )
     expect(loadGameState()).toBeNull()
   })
 })
