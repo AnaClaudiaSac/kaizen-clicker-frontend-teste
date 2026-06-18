@@ -31,3 +31,16 @@ export function upsertRankingEntry(ranking: RankingEntry[], newEntry: RankingEnt
 export function getTopRanking(ranking: RankingEntry[]): RankingEntry[] {
   return [...ranking].sort((a, b) => b.score - a.score).slice(0, RANKING_TOP_COUNT)
 }
+
+/**
+ * Gera as iniciais exibidas no avatar de um jogador a partir do nome real
+ * salvo no ranking (sem dados inventados): duas primeiras palavras, ou os
+ * dois primeiros caracteres quando o nome tem só uma palavra.
+ */
+export function getInitials(name: string): string {
+  const parts = name.trim().split(/\s+/).filter(Boolean)
+  if (parts.length >= 2) {
+    return (parts[0][0] + parts[1][0]).toUpperCase()
+  }
+  return name.trim().slice(0, 2).toUpperCase()
+}
