@@ -9,6 +9,8 @@ import { calculateFactoryStats, canPurchaseUpgrade, getUpgradeCost } from '../en
 interface GameStore {
   game: GameState
   ranking: RankingEntry[]
+  /** Nome usado na última vez que o jogador salvou pontuação nesta sessão, usado para destacar "você" no ranking. */
+  lastSavedPlayerName: string | null
   tick: (now: number) => void
   purchaseUpgrade: (id: UpgradeId) => void
   saveScore: (name: string) => void
@@ -21,6 +23,7 @@ function loadOrCreateInitialState(): GameState {
 export const useGameStore = create<GameStore>((set, get) => ({
   game: loadOrCreateInitialState(),
   ranking: loadRanking(),
+  lastSavedPlayerName: null,
 
   tick: (now) => {
     const { game } = get()
@@ -63,7 +66,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
     const score = Math.round(game.totalProduced)
     const nextRanking = upsertRankingEntry(ranking, { name: sanitized, score, savedAt: Date.now() })
 
-    set({ ranking: nextRanking })
+    set({ ranking: nextRanking, lastSavedPlayerName: sanitized })
     saveRanking(nextRanking)
   },
 }))

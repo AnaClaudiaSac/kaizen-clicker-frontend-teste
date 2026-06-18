@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { RANKING_MAX_STORED_ENTRIES } from '../constants'
-import { getTopRanking, sanitizePlayerName, upsertRankingEntry } from '../ranking'
+import { getInitials, getTopRanking, sanitizePlayerName, upsertRankingEntry } from '../ranking'
 import type { RankingEntry } from '../types'
 
 describe('sanitizePlayerName', () => {
@@ -48,6 +48,20 @@ describe('upsertRankingEntry', () => {
     expect(result).toHaveLength(RANKING_MAX_STORED_ENTRIES)
     expect(result[0].name).toBe('NovoJogador')
     expect(result.some((entry) => entry.score === 0)).toBe(false)
+  })
+})
+
+describe('getInitials', () => {
+  it('usa a primeira letra de cada uma das duas primeiras palavras', () => {
+    expect(getInitials('Ana Cláudia')).toBe('AC')
+  })
+
+  it('usa os dois primeiros caracteres quando o nome tem só uma palavra', () => {
+    expect(getInitials('Bruno')).toBe('BR')
+  })
+
+  it('ignora espaços extras entre as palavras', () => {
+    expect(getInitials('  João   Pedro  ')).toBe('JP')
   })
 })
 

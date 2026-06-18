@@ -42,7 +42,7 @@ function App() {
           <UpgradesList />
         </div>
       ) : (
-        <div className="kc-body">
+        <div className="kc-page">
           <RankingScreen />
         </div>
       )}
