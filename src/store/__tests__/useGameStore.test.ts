@@ -46,6 +46,34 @@ describe('saveScore', () => {
   })
 })
 
+describe('resetGame', () => {
+  it('volta o jogo ao estado inicial, zerando pontos, produção e compras', () => {
+    useGameStore.setState((state) => ({
+      game: {
+        ...state.game,
+        points: 500,
+        totalProduced: 1000,
+        totalDefects: 50,
+        purchases: { ...state.game.purchases, '5s': 3 },
+      },
+    }))
+
+    useGameStore.getState().resetGame()
+
+    const { game } = useGameStore.getState()
+    expect(game.points).toBe(0)
+    expect(game.totalProduced).toBe(0)
+    expect(game.totalDefects).toBe(0)
+    expect(game.purchases['5s']).toBe(0)
+  })
+
+  it('não altera o ranking salvo', () => {
+    useGameStore.setState({ ranking: [{ name: 'Ana', score: 100, savedAt: 1 }] })
+    useGameStore.getState().resetGame()
+    expect(useGameStore.getState().ranking).toEqual([{ name: 'Ana', score: 100, savedAt: 1 }])
+  })
+})
+
 describe('tick', () => {
   it('não altera o estado quando nenhum tick completo se passou', () => {
     const before = useGameStore.getState().game

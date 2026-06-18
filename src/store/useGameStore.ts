@@ -14,6 +14,7 @@ interface GameStore {
   tick: (now: number) => void
   purchaseUpgrade: (id: UpgradeId) => void
   saveScore: (name: string) => void
+  resetGame: () => void
 }
 
 function loadOrCreateInitialState(): GameState {
@@ -68,5 +69,11 @@ export const useGameStore = create<GameStore>((set, get) => ({
 
     set({ ranking: nextRanking, lastSavedPlayerName: sanitized })
     saveRanking(nextRanking)
+  },
+
+  resetGame: () => {
+    const nextGame = createInitialGameState(Date.now())
+    set({ game: nextGame })
+    saveGameState(nextGame)
   },
 }))
