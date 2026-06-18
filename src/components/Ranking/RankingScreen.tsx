@@ -7,17 +7,19 @@ export function RankingScreen() {
   const topRanking = getTopRanking(ranking)
 
   return (
-    <section className="flex flex-col gap-4">
+    <div className="kc-left" style={{ width: '100%' }}>
       <SaveScoreForm />
 
-      <div className="rounded-lg border border-slate-700 bg-slate-800 p-4">
-        <h2 className="mb-3 text-lg font-semibold text-slate-100">Top 10</h2>
+      <div className="kc-panel">
+        <h2 className="kc-shop-title" style={{ marginBottom: '12px' }}>
+          Top 10
+        </h2>
         {topRanking.length === 0 ? (
-          <p className="text-sm text-slate-400">Nenhuma pontuação salva ainda.</p>
+          <p className="kc-stat-lbl">Nenhuma pontuação salva ainda.</p>
         ) : (
           <ol className="flex flex-col gap-2">
             {topRanking.map((entry, index) => (
-              <li key={entry.name} className="flex justify-between text-sm text-slate-200">
+              <li key={entry.name} className="flex justify-between text-sm" style={{ color: 'var(--kc-text)' }}>
                 <span>
                   {index + 1}. {entry.name}
                 </span>
@@ -27,6 +29,6 @@ export function RankingScreen() {
           </ol>
         )}
       </div>
-    </section>
+    </div>
   )
 }

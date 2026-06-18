@@ -12,38 +12,41 @@ function App() {
   const [view, setView] = useState<View>('game')
 
   return (
-    <main className="min-h-screen bg-slate-900 px-4 py-8 text-slate-100">
-      <div className="mx-auto flex max-w-2xl flex-col gap-6">
-        <h1 className="text-center text-2xl font-semibold">Kaizen Clicker</h1>
-
-        <nav className="flex justify-center gap-2">
+    <div className="kc">
+      <header className="kc-header">
+        <span className="kc-title">Kaizen Clicker</span>
+        <nav className="kc-tabs">
           <button
             type="button"
             onClick={() => setView('game')}
-            className={`rounded-md px-4 py-2 text-sm font-medium ${view === 'game' ? 'bg-emerald-600 text-white' : 'bg-slate-800 text-slate-300'}`}
+            className={`kc-tab ${view === 'game' ? 'active' : ''}`}
           >
             Jogo
           </button>
           <button
             type="button"
             onClick={() => setView('ranking')}
-            className={`rounded-md px-4 py-2 text-sm font-medium ${view === 'ranking' ? 'bg-emerald-600 text-white' : 'bg-slate-800 text-slate-300'}`}
+            className={`kc-tab ${view === 'ranking' ? 'active' : ''}`}
           >
             Ranking
           </button>
         </nav>
+      </header>
 
-        {view === 'game' ? (
-          <>
+      {view === 'game' ? (
+        <div className="kc-body">
+          <div className="kc-left">
             <FactoryView />
             <Dashboard />
-            <UpgradesList />
-          </>
-        ) : (
+          </div>
+          <UpgradesList />
+        </div>
+      ) : (
+        <div className="kc-body">
           <RankingScreen />
-        )}
-      </div>
-    </main>
+        </div>
+      )}
+    </div>
   )
 }
 

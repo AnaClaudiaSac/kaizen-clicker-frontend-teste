@@ -7,16 +7,18 @@ interface DefectsChartProps {
 
 export function DefectsChart({ data }: DefectsChartProps) {
   return (
-    <div className="rounded-lg border border-slate-700 bg-slate-800 p-4">
-      <h3 className="mb-2 text-sm font-semibold text-slate-300">Defeitos por minuto</h3>
-      <ResponsiveContainer width="100%" height={160}>
-        <BarChart data={data}>
-          <XAxis dataKey="timestamp" hide />
-          <YAxis stroke="#94a3b8" fontSize={12} />
-          <Tooltip />
-          <Bar dataKey="defectsPerMinute" fill="#f87171" />
-        </BarChart>
-      </ResponsiveContainer>
+    <div className="kc-chart-card">
+      <p className="kc-chart-title">Defeitos por minuto</p>
+      <div className="kc-chart-body">
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart data={data}>
+            <XAxis dataKey="timestamp" hide />
+            <YAxis hide domain={[0, 'auto']} />
+            <Tooltip />
+            <Bar dataKey="defectsPerMinute" fill="#f06060" isAnimationActive={false} />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
     </div>
   )
 }

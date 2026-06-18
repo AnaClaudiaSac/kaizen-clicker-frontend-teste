@@ -11,10 +11,12 @@ export function Dashboard() {
   const chartData = toChartPoints(game.history)
 
   return (
-    <section className="grid gap-4 sm:grid-cols-2">
-      <ProductionChart data={chartData} />
-      <DefectsChart data={chartData} />
+    <>
       <OeeGauge oee={stats.oee} />
-    </section>
+      <div className="kc-charts">
+        <ProductionChart data={chartData} />
+        <DefectsChart data={chartData} />
+      </div>
+    </>
   )
 }
