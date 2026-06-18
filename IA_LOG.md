@@ -25,4 +25,4 @@ Por etapa:
 
 11 - Tooltip dos gráficos: notei números ilegíveis (cinza claro), pedi pra traduzir pro português e tirar o espaço antes dos dois-pontos, depois pedi arredondamento e horário legível. pedi pra evitar o tipo unknown no código.
 
-12 - testado manualmente antes de aceitar: [contar aqui se teve algum outro momento que testar no navegador pegou algo importante]
+12 - testado manualmente no Google Chrome e no Microsoft Edge
